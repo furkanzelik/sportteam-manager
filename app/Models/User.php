@@ -51,4 +51,24 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function playerProfile()
+    {
+        return $this->hasOne(PlayerProfile::class);
+    }
+
+    public function teams() // als speler
+    {
+        return $this->belongsToMany(Team::class)->withTimestamps();
+    }
+
+    public function coachedTeams() // als coach
+    {
+        return $this->hasMany(Team::class, 'coach_id');
+    }
+
+    public function loginEvents()
+    {
+        return $this->hasMany(LoginEvent::class);
+    }
 }
