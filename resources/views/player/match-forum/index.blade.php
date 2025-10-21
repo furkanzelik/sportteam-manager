@@ -4,6 +4,17 @@
     </x-slot>
 
     <div class="p-6">
+        <div class="flex justify-end mb-4">
+            <form method="GET" action="{{ route('player.forum') }}">
+                <label for="position" class="text-sm font-medium mr-2"></label>
+                <select name="position" id="position" class="border rounded-md px-5 py-1 text-sm" onchange="this.form.submit()">
+                    <option value="">Alle posities</option>
+                    @foreach($positions as $pos)
+                        <option value="{{ $pos }}" @selected($filter === $pos)>{{ $pos }}</option>
+                    @endforeach
+                </select>
+            </form>
+        </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse($requests as $req)
                 <div class="border rounded-lg shadow hover:shadow-md transition p-4 bg-white">
