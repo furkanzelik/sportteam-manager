@@ -1,6 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl">Mijn teams & wedstrijden</h2>
+        <div class="mb-6">
+            <form method="GET" action="{{ route('player.myteams') }}" class="flex items-center space-x-3">
+                <label for="location" class="text-sm font-medium text-gray-600" >Zoek Stadion</label>
+                <input type="text" name="location" id="location" value="{{request('location')}}" placeholder="Stadion" class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring focus:ring-blue-200">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700 transition" >Zoeken</button>
+                @if(request('location'))
+                    <a href="{{route('player.myteams')}}" class="text-sm text-gray-600 hover:underline ml-2" >Reset</a>
+                @endif
+            </form>
+        </div>
     </x-slot>
 
     <div class="p-6 space-y-8">

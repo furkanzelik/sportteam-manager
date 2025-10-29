@@ -15,6 +15,7 @@ class MatchRequest extends Model
         'position_needed',
         'players_needed',
         'description',
+        'is_active',
     ];
 
     public function game()

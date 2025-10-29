@@ -8,6 +8,7 @@ use App\Http\Controllers\Coach\ToggleGameStatusController;
 use App\Http\Controllers\Player\ProfileController as PlayerProfileController;
 use App\Http\Controllers\Player\MyTeamController;
 use App\Http\Controllers\Player\MatchForumController;
+use App\Http\Controllers\MatchRequestController;
 use App\Enums\Role; // <<< belangrijk voor rol-check
 
 // Home: ingelogd? -> naar dashboard, anders welcome
@@ -52,6 +53,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/me/forum', [MatchForumController::class, 'index'])->name('player.forum');
     Route::get('/me/forum/{matchRequest}', [MatchForumController::class, 'show'])->name('player.forum.show');
     Route::post('/me/forum/{matchRequest}/comment', [MatchForumController::class, 'comment'])->name('player.forum.comment');
+
+    // gedeelde routes voor spelers & Coach om nieuwe aanvragen in te dienen
+    Route::get('/match-requests/create', [MatchRequestController::class, 'create'])->name('match-requests.create');
+    Route::post('/match-requests', [MatchRequestController::class, 'store'])->name('match-requests.store');
+    Route::get('/match-requests/{matchRequest}/edit', [MatchRequestController::class, 'edit'])->name('match-requests.edit');
+    Route::post('/match-requests/{matchRequest}/update', [MatchRequestController::class, 'updatePost'])->name('match-requests.update.post');
+    Route::post('/match-requests/{matchRequest}/delete', [MatchRequestController::class, 'destroyPost'])->name('match-requests.destroy.post');
+    Route::post('/match-requests/{matchRequest}/toggle', [MatchRequestController::class, 'toggleActive'])->name('match-requests.toggle');
 
 });
 

@@ -1,6 +1,35 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl">Wedstrijd details</h2>
+        <div class="flex items-center justify-between">
+            <h2 class="font-semibold text-xl">Wedstrijd details</h2>
+
+            {{-- 🔒 Alleen zichtbaar voor aanmaker of coach --}}
+            <div class="flex gap-2">
+                @can('update', $matchRequest)
+                    <a href="{{ route('match-requests.edit', $matchRequest) }}"
+                       class="text-sm px-3 py-1 bg-blue-600 text-white border rounded hover:bg-gray-100">
+                        Bewerken
+                    </a>
+
+                    <form action="{{ route('match-requests.toggle', $matchRequest) }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="text-sm px-3 py-1 border rounded hover:bg-gray-100">
+                            {{ $matchRequest->is_active ? 'Zet inactief' : 'Zet actief' }}
+                        </button>
+                    </form>
+                @endcan
+
+                @can('delete', $matchRequest)
+                    <form action="{{ route('match-requests.destroy.post', $matchRequest) }}" method="POST" class="inline"
+                          onsubmit="return confirm('Weet je zeker dat je deze aanvraag wilt verwijderen?');">
+                        @csrf
+                        <button type="submit" class="text-sm px-3 py-1 text-white bg-red-600 border rounded hover:bg-red-50">
+                            Verwijderen
+                        </button>
+                    </form>
+                @endcan
+            </div>
+        </div>
     </x-slot>
 
     <div class="p-6 space-y-6">
@@ -14,8 +43,14 @@
             <p><strong>Locatie:</strong> {{ $matchRequest->game->location }}</p>
             <p><strong>Positie gezocht:</strong> {{ $matchRequest->position_needed }}</p>
             <p><strong>Spelers tekort:</strong> {{ $matchRequest->players_needed }}</p>
+            <p><strong>Status:</strong>
+                <span class="{{ $matchRequest->is_active ? 'text-green-600' : 'text-red-600' }}">
+                    {{ $matchRequest->is_active ? 'Actief' : 'Inactief' }}
+                </span>
+            </p>
+
             @if($matchRequest->description)
-                <p class="mt-2 text-gray-700">{{ $matchRequest->description }}</p>
+                <p class="mt-3 text-gray-700">{{ $matchRequest->description }}</p>
             @endif
 
             <div class="mt-4">
@@ -45,7 +80,8 @@
                 @csrf
                 <textarea name="message" rows="3" class="w-full border rounded-md p-2"
                           placeholder="Plaats een reactie..."></textarea>
-                <button type="submit" class="mt-2 px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700">
+                <button type="submit"
+                        class="mt-2 px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700">
                     Reageer
                 </button>
             </form>

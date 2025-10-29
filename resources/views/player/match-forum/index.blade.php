@@ -2,7 +2,12 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl">Wedstrijden met spelers tekort</h2>
     </x-slot>
-
+    <div class="flex justify-end mt-5">
+        <a href="{{ route('match-requests.create') }}"
+           class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700 transition">
+            + Nieuwe aanvraag maken
+        </a>
+    </div>
     <div class="p-6">
         <div class="flex justify-end mb-4">
             <form method="GET" action="{{ route('player.forum') }}">
