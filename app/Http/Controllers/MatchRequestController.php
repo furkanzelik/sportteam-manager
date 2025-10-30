@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Models\Game;
 use App\Models\MatchRequest;
 use App\Models\Team;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -115,8 +116,9 @@ class MatchRequestController extends Controller
 
     /**
      * Bewerken-opslaan via POST (ipv PUT)
+     * @throws AuthorizationException
      */
-    public function updatePost(Request $request, MatchRequest $matchRequest)
+    public function updatePost(Request $request, MatchRequest $matchRequest): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('update', $matchRequest);
 
@@ -150,8 +152,9 @@ class MatchRequestController extends Controller
 
     /**
      * Actief/Inactief togglen via POST
+     * @throws AuthorizationException
      */
-    public function toggleActive(Request $request, MatchRequest $matchRequest)
+    public function toggleActive(Request $request, MatchRequest $matchRequest): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('update', $matchRequest);
 
@@ -165,13 +168,13 @@ class MatchRequestController extends Controller
     /**
      * (Nog aanwezig voor compatibiliteit – niet gebruikt als je POST-routes gebruikt)
      */
-    public function update(Request $request, MatchRequest $matchRequest)
+    public function update(Request $request, MatchRequest $matchRequest): void
     {
         // Laat leeg of verwijs intern door naar updatePost, afhankelijk van jouw routes.
         abort(405);
     }
 
-    public function destroy(MatchRequest $matchRequest)
+    public function destroy(MatchRequest $matchRequest): void
     {
         // Laat leeg of verwijs intern door naar destroyPost, afhankelijk van jouw routes.
         abort(405);

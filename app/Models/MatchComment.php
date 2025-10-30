@@ -15,11 +15,17 @@ class MatchComment extends Model
         'message',
     ];
 
+    /**
+     * Reactie hoort bij één match request
+     */
     public function matchRequest()
     {
         return $this->belongsTo(MatchRequest::class);
     }
 
+    /**
+     * Reactie hoort bij één gebruiker
+     */
     public function user()
     {
         return $this->belongsTo(User::class);

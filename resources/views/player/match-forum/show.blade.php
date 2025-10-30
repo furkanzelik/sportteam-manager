@@ -7,7 +7,7 @@
             <div class="flex gap-2">
                 @can('update', $matchRequest)
                     <a href="{{ route('match-requests.edit', $matchRequest) }}"
-                       class="text-sm px-3 py-1 bg-blue-600 text-white border rounded hover:bg-gray-100">
+                       class="text-sm px-3 py-1 bg-blue-600 text-white border rounded hover:bg-blue-700">
                         Bewerken
                     </a>
 
@@ -23,7 +23,7 @@
                     <form action="{{ route('match-requests.destroy.post', $matchRequest) }}" method="POST" class="inline"
                           onsubmit="return confirm('Weet je zeker dat je deze aanvraag wilt verwijderen?');">
                         @csrf
-                        <button type="submit" class="text-sm px-3 py-1 text-white bg-red-600 border rounded hover:bg-red-50">
+                        <button type="submit" class="text-sm px-3 py-1 text-white bg-red-600 border rounded hover:bg-red-700">
                             Verwijderen
                         </button>
                     </form>
@@ -33,6 +33,27 @@
     </x-slot>
 
     <div class="p-6 space-y-6">
+
+        {{-- ✅ FLASH MESSAGES --}}
+        @if (session('success'))
+            <div class="rounded-md bg-green-50 border border-green-200 text-green-800 px-4 py-3">
+                ✅ {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="rounded-md bg-red-50 border border-red-200 text-red-800 px-4 py-3">
+                🔴 {{ session('error') }}
+            </div>
+        @endif
+
+        {{-- (Optioneel) algemene errors die niet aan een specifiek veld hangen --}}
+        @if ($errors->any() && !$errors->has('message'))
+            <div class="rounded-md bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3">
+                ⚠️ Er ging iets mis. Controleer je invoer en probeer het opnieuw.
+            </div>
+        @endif
+
         {{-- Wedstrijdinformatie --}}
         <div class="border rounded-lg p-6 shadow-sm bg-white">
             <h3 class="text-2xl font-bold mb-3">
@@ -78,8 +99,14 @@
             {{-- Reactieformulier --}}
             <form action="{{ route('player.forum.comment', $matchRequest) }}" method="POST" class="mt-6">
                 @csrf
+
+                {{-- Specifieke foutmelding voor het message-veld --}}
+                @if($errors->has('message'))
+                    <p class="text-red-600 text-sm mb-2">{{ $errors->first('message') }}</p>
+                @endif
+
                 <textarea name="message" rows="3" class="w-full border rounded-md p-2"
-                          placeholder="Plaats een reactie..."></textarea>
+                          placeholder="Plaats een reactie...">{{ old('message') }}</textarea>
                 <button type="submit"
                         class="mt-2 px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700">
                     Reageer
