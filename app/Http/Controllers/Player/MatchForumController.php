@@ -17,10 +17,9 @@ class MatchForumController extends Controller
      */
     public function index(Request $request)
     {
-        // Posities die in jouw app voorkomen (pas gerust aan)
         $positions = ['Keeper', 'Verdediger', 'Middenvelder', 'Aanvaller'];
 
-        // Valideer (optionele) filter uit de querystring
+        // filter uit de querystring
         $validated = $request->validate([
             'position' => ['nullable', Rule::in($positions)],
         ]);
@@ -53,9 +52,10 @@ class MatchForumController extends Controller
         return view('player.match-forum.show', compact('matchRequest'));
     }
 
-    /**
-     * Nieuwe reactie plaatsen op een verzoek.
-     */
+
+
+
+    // Nieuwe reactie plaatsen op een verzoek.
     public function comment(Request $request, MatchRequest $matchRequest)
     {
         $request->validate([
@@ -64,7 +64,7 @@ class MatchForumController extends Controller
 
         $userId = auth()->id();
 
-        // 💡 Diepe validatie: gebruiker moet op minstens 5 verschillende dagen hebben ingelogd
+        // Diepe validatie wat cursushandleiding wilde gebruiker moet op minstens 5 verschillende dagen hebben ingelogd
         $distinctDays = LoginEvent::where('user_id', $userId)
             ->select(DB::raw('COUNT(DISTINCT DATE(created_at)) as days'))
             ->value('days');

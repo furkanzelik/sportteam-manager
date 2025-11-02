@@ -9,7 +9,7 @@ class ProfileController extends Controller
 {
     public function edit()
     {
-        $user = auth()->user();
+        $user = auth()->user();               // ingelogde gebruiker
         $profile = $user->playerProfile()->firstOrCreate([]); // maak aan indien niet bestaat
         return view('player.profile.edit', compact('user','profile'));
     }

@@ -10,8 +10,6 @@
                     ? route('match-requests.update.post', $matchRequest)
                     : route('match-requests.store') }}">
             @csrf
-            {{-- Let op: we gebruiken POST-routes, dus GEEN @method('PUT') hier --}}
-
             <div class="mb-4">
                 <label for="game_id" class="block font-medium">Wedstrijd</label>
 

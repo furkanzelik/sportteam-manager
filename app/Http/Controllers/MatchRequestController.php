@@ -14,9 +14,8 @@ class MatchRequestController extends Controller
 {
     protected array $positions = ['Keeper', 'Verdediger', 'Middenvelder', 'Aanvaller'];
 
-    /**
-     * Formulier voor aanmaken (coach = alle eigen teams, speler = eigen teams)
-     */
+
+     // Formulier voor aanmaken (coach = alle eigen teams, speler = eigen teams)
     public function create()
     {
         $user = auth()->user();
@@ -24,7 +23,7 @@ class MatchRequestController extends Controller
         if ($user->role === Role::Coach) {
             $teamIds = Team::where('coach_id', $user->id)->pluck('id');
         } else {
-            // qualify i.v.m. pivot id
+
             $teamIds = $user->teams()->select('teams.id')->pluck('teams.id');
         }
 
@@ -45,9 +44,8 @@ class MatchRequestController extends Controller
         ]);
     }
 
-    /**
-     * Opslaan (POST)
-     */
+
+     // Opslaan (POST)
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -84,9 +82,9 @@ class MatchRequestController extends Controller
         return redirect()->route('player.forum')->with('success', 'Aanvraag aangemaakt.');
     }
 
-    /**
-     * Bewerken-formulier (GET)
-     */
+
+     // formulier Bewerken (GET)
+
     public function edit(MatchRequest $matchRequest)
     {
         $this->authorize('update', $matchRequest);

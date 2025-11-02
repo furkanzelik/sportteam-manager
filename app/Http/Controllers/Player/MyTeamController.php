@@ -11,7 +11,7 @@ class MyTeamController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
-        $location = $request->query('location'); // zoekterm uit de URL (?location=...)
+        $location = $request->query('location');
 
         // speler kan in meerdere teams zitten
         $teams = $user->teams()->with('competition')->get();
@@ -19,14 +19,14 @@ class MyTeamController extends Controller
         $matchesByTeam = [];
 
         foreach ($teams as $team) {
-            // basisquery: wedstrijden waar dit team in speelt
+            // wedstrijden waar dit team in speelt
             $base = Game::with(['homeTeam', 'awayTeam'])
                 ->where(function ($q) use ($team) {
                     $q->where('home_team_id', $team->id)
                         ->orWhere('away_team_id', $team->id);
                 })
                 ->when($location, function ($q) use ($location) {
-                    // filter op locatie (LIKE = gedeeltelijke match)
+                    // filter op locatie (like = gedeeltelijke match)
                     $q->where('location', 'like', '%' . $location . '%');
                 });
 

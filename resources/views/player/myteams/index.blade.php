@@ -19,8 +19,6 @@
                 <h3 class="text-lg font-semibold">
                     {{ $team->name }} — {{ $team->competition->name ?? 'Zonder competitie' }}
                 </h3>
-
-                {{-- Komende wedstrijden --}}
                 <div class="mt-3">
                     <h4 class="font-semibold">Komende wedstrijden</h4>
                     @if(($matchesByTeam[$team->id]['upcoming'] ?? collect())->isEmpty())
@@ -42,8 +40,6 @@
                         </ul>
                     @endif
                 </div>
-
-                {{-- Recente wedstrijden --}}
                 <div class="mt-4">
                     <h4 class="font-semibold">Recente wedstrijden</h4>
                     @if(($matchesByTeam[$team->id]['recent'] ?? collect())->isEmpty())

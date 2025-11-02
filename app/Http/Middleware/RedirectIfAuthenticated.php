@@ -10,9 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class RedirectIfAuthenticated
 {
     /**
-     * Handle an incoming request.
-     *
-     * Als een ingelogde gebruiker naar login/register gaat, stuur hem door.
+     Als een ingelogde gebruiker naar login/register gaat, stuur hem door.
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {

@@ -7,7 +7,7 @@ use App\Models\User;
 
 class TeamPolicy
 {
-    public function viewAny(User $user): bool
+    public function viewAny(User $user): bool // geeft de rol aan coah om teams te beheren
     {
         return $user->role->value === 'coach';
     }

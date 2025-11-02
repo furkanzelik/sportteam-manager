@@ -62,13 +62,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Team::class)->withTimestamps();
     }
 
-    public function coachedTeams() // als coach
-    {
-        return $this->hasMany(Team::class, 'coach_id');
-    }
-
-    public function loginEvents()
-    {
-        return $this->hasMany(LoginEvent::class);
-    }
+//    public function coachedTeams() // als coach
+//    {
+//        return $this->hasMany(Team::class, 'coach_id');
+//    }
+//
+//    public function loginEvents()
+//    {
+//        return $this->hasMany(LoginEvent::class);
+//    }
 }
