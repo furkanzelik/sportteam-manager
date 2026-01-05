@@ -142,13 +142,13 @@ class DemoDataSeeder extends Seeder
                 );
             }
 
-            // (Optioneel) alvast een paar login_events voor player1
+            // Login events voor player1 (minimaal 5 verschillende dagen voor schoolcriteria)
             if (class_exists(LoginEvent::class)) {
-                for ($i = 1; $i <= 3; $i++) {
+                for ($i = 1; $i <= 7; $i++) {
                     LoginEvent::firstOrCreate([
                         'user_id'    => $player1->id,
-                        'created_at' => now()->subDays($i)->startOfDay()->addHours(9),
-                        'updated_at' => now()->subDays($i)->startOfDay()->addHours(9),
+                        'created_at' => now()->subDays($i)->setTime(rand(9, 20), rand(0, 59)),
+                        'updated_at' => now()->subDays($i)->setTime(rand(9, 20), rand(0, 59)),
                     ]);
                 }
             }
