@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl">Wedstrijd details</h2>
 
-            {{-- 🔒 Alleen zichtbaar voor aanmaker of coach --}}
+            {{-- Alleen zichtbaar voor aanmaker of coach --}}
             <div class="flex gap-2">
                 @can('update', $matchRequest)
                     <a href="{{ route('match-requests.edit', $matchRequest) }}"
@@ -34,20 +34,20 @@
 
     <div class="p-6 space-y-6">
 
-        {{-- ✅ FLASH MESSAGES --}}
+        {{--  FLASH MESSAGES --}}
         @if (session('success'))
             <div class="rounded-md bg-green-50 border border-green-200 text-green-800 px-4 py-3">
-                ✅ {{ session('success') }}
+                 {{ session('success') }}
             </div>
         @endif
 
         @if (session('error'))
             <div class="rounded-md bg-red-50 border border-red-200 text-red-800 px-4 py-3">
-                🔴 {{ session('error') }}
+                 {{ session('error') }}
             </div>
         @endif
 
-        {{-- (Optioneel) algemene errors die niet aan een specifiek veld hangen --}}
+        {{-- algemene error --}}
         @if ($errors->any() && !$errors->has('message'))
             <div class="rounded-md bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3">
                 ⚠️ Er ging iets mis. Controleer je invoer en probeer het opnieuw.

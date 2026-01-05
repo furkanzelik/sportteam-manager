@@ -19,7 +19,7 @@ class MatchForumController extends Controller
     {
         $positions = ['Keeper', 'Verdediger', 'Middenvelder', 'Aanvaller'];
 
-        // filter uit de querystring
+        // valideer wat er via de URL komt
         $validated = $request->validate([
             'position' => ['nullable', Rule::in($positions)],
         ]);

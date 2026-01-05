@@ -89,7 +89,7 @@ Route::middleware(['auth', 'coach'])
         Route::resource('teams', TeamController::class);
         Route::resource('games', GameController::class);
 
-        // Extra route voor status toggle (verplichte eis)
+        // Extra route voor status toggle
         Route::post('/games/{game}/toggle-status', ToggleGameStatusController::class)
             ->name('games.toggle-status');
     });

@@ -39,16 +39,16 @@ class Team extends Model
 
 
       // Relatie: een team speelt veel wedstrijden als thuisteam.
-//    public function homeMatches()
-//    {
-//        return $this->hasMany(Game::class, 'home_team_id');
-//    }
+    public function homeMatches()
+    {
+        return $this->hasMany(Game::class, 'home_team_id');
+    }
 
     /**
      * Relatie: een team speelt veel wedstrijden als uitteam.
      */
-//    public function awayMatches(): \Illuminate\Database\Eloquent\Relations\HasMany
-//    {
-//        return $this->hasMany(Game::class, 'away_team_id');
-//    }
+    public function awayMatches(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Game::class, 'away_team_id');
+    }
 }
